@@ -1,0 +1,33 @@
+# ── Temel ──
+fastapi==0.115.0
+uvicorn==0.30.6
+python-multipart==0.0.9
+Pillow==10.4.0
+numpy==1.26.4
+deep-translator==1.11.4
+opencv-python-headless
+setuptools
+
+# ── PaddleOCR + PaddlePaddle GPU ──
+# ÖNEMLİ: Aşağıdaki komutları SIRASI İLE çalıştırın:
+#
+# 1. Eski paketleri kaldır:
+#    pip uninstall paddlepaddle paddlepaddle-gpu paddleocr -y
+#
+# 2. PaddlePaddle GPU yükle (CUDA 12.6):
+#    pip install paddlepaddle-gpu -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
+#
+# 3. PaddleOCR yükle (2.x API uyumlu):
+#    pip install "paddleocr>=2.9,<3.0"
+#
+# NOT: paddleocr 3.x API değişikliği var, şimdilik 2.9.x kullanıyoruz.
+
+# ── GLM-OCR & YOLOv8 (CUDA) ──
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+# pip install git+https://github.com/huggingface/transformers.git
+# pip install accelerate
+ultralytics
+huggingface-hub
+
+# ── Gemini API (Gemma-3-27B) ──
+google-genai

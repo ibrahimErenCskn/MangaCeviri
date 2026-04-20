@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manhwa Çeviri</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 360px;
+        min-height: 280px;
+        font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+        background: linear-gradient(160deg, #0a0a14 0%, #111128 40%, #1a1040 100%);
+        color: #e2e8f0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      /* ── Header ── */
+      .popup-header {
+        padding: 20px 24px 16px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .popup-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 50% 100%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
+        pointer-events: none;
+      }
+
+      .popup-header .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+
+      .popup-header .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, #6366f1, #a855f7);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+      }
+
+      .popup-header h1 {
+        font-size: 20px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.02em;
+      }
+
+      .popup-header p {
+        font-size: 11px;
+        color: #64748b;
+        margin-top: 2px;
+        letter-spacing: 0.03em;
+      }
+
+      /* ── Body ── */
+      .popup-body {
+        padding: 14px 20px 18px;
+      }
+
+      /* ── Row layout ── */
+      .options-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .field-group {
+        flex: 1;
+        margin-bottom: 0;
+      }
+
+      .field-group.full {
+        flex: unset;
+        width: 100%;
+        margin-bottom: 12px;
+      }
+
+      .field-group label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        color: #64748b;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .field-group label .label-icon {
+        font-size: 12px;
+      }
+
+      .field-group select {
+        width: 100%;
+        padding: 8px 30px 8px 10px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(99, 102, 241, 0.15);
+        border-radius: 10px;
+        color: #cbd5e1;
+        font-size: 12px;
+        font-family: inherit;
+        font-weight: 500;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366f1'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 6px center;
+        background-size: 18px;
+      }
+
+      .field-group select:hover {
+        border-color: rgba(99, 102, 241, 0.4);
+        background-color: rgba(255, 255, 255, 0.06);
+      }
+
+      .field-group select:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+      }
+
+      .field-group select option {
+        background: #1a1a2e;
+        color: #e2e8f0;
+      }
+
+      /* ── Toggle Switch ── */
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(99, 102, 241, 0.12);
+        border-radius: 12px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .toggle-row:hover {
+        background: rgba(99, 102, 241, 0.06);
+        border-color: rgba(99, 102, 241, 0.25);
+      }
+
+      .toggle-label {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .toggle-label span:first-child {
+        font-size: 12px;
+        font-weight: 600;
+        color: #e2e8f0;
+      }
+
+      .toggle-label span:last-child {
+        font-size: 10px;
+        color: #64748b;
+        margin-top: 2px;
+      }
+
+      .toggle-switch {
+        position: relative;
+        width: 42px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .toggle-slider::before {
+        content: '';
+        position: absolute;
+        left: 3px;
+        top: 3px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #94a3b8;
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      }
+
+      .toggle-switch input:checked + .toggle-slider {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+      }
+
+      .toggle-switch input:checked + .toggle-slider::before {
+        transform: translateX(18px);
+        background: #fff;
+      }
+
+      /* ── Primary Button ── */
+      .primary-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+        border: none;
+        border-radius: 14px;
+        color: white;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        margin-bottom: 12px;
+        letter-spacing: -0.01em;
+      }
+
+      .primary-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 28px rgba(99, 102, 241, 0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+      }
+
+      .primary-btn:active {
+        transform: translateY(0px) scale(0.98);
+      }
+
+      .primary-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        filter: grayscale(0.5);
+        transform: none !important;
+      }
+
+      .primary-btn svg {
+        width: 14px;
+        height: 14px;
+        fill: currentColor;
+        flex-shrink: 0;
+      }
+
+      /* ── Status Bar ── */
+      .status-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        background: rgba(16, 185, 129, 0.06);
+        border: 1px solid rgba(16, 185, 129, 0.15);
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 500;
+        color: #6ee7b7;
+      }
+
+      .status-bar.offline {
+        background: rgba(239, 68, 68, 0.06);
+        border-color: rgba(239, 68, 68, 0.15);
+        color: #fca5a5;
+      }
+
+      .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+        animation: status-pulse 2s ease-in-out infinite;
+        flex-shrink: 0;
+      }
+
+      .status-bar.offline .status-dot {
+        background: #ef4444;
+        box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+        animation: none;
+      }
+
+      @keyframes status-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+
+      /* ── Footer Info ── */
+      .info-text {
+        margin-top: 10px;
+        font-size: 10px;
+        color: #475569;
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      .info-text kbd {
+        display: inline-block;
+        padding: 1px 5px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 4px;
+        font-size: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: inherit;
+      }
+
+      /* ── Separator ── */
+      .separator {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+        margin: 0 0 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="popup-header">
+      <div class="logo-row">
+        <div class="logo-icon">🌐</div>
+        <h1>Manhwa Çeviri</h1>
+      </div>
+      <p>Webtoon sayfalarını anında çevir</p>
+    </div>
+
+    <div class="popup-body">
+      <div class="options-row">
+        <div class="field-group">
+          <label><span class="label-icon">⚙️</span> OCR Motoru</label>
+          <select id="engine-select">
+            <option value="paddle">⚡ PaddleOCR</option>
+            <option value="glm-ocr">🧠 GLM-OCR (AI)</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label><span class="label-icon">🌍</span> Hedef Dil</label>
+          <select id="lang-select">
+            <option value="tr">🇹🇷 Türkçe</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="zh-cn">🇨🇳 中文</option>
+            <option value="ar">🇸🇦 العربية</option>
+            <option value="ru">🇷🇺 Русский</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="toggle-row" id="overlay-toggle-row">
+        <div class="toggle-label">
+          <span>✏️ Doğrudan Yazı Modu</span>
+          <span>Çeviriyi balonun üstüne kalıcı yaz</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="direct-overlay-toggle" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="separator"></div>
+
+      <button id="translate-all-btn" class="primary-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+        <span id="translate-all-text">Bölümdeki Görselleri Çevir</span>
+      </button>
+
+      <div class="status-bar" id="status-bar">
+        <div class="status-dot"></div>
+        <span id="status-text">Backend kontrol ediliyor...</span>
+      </div>
+
+      <p class="info-text">
+        Görseldeki <kbd>🌐</kbd> ikonuna tıklayarak tekli çeviri.<br>
+        <strong>Doğrudan Yazı Modu</strong> aktifken metin balona kalıcı yazılır.
+      </p>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
